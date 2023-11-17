@@ -1,11 +1,14 @@
 import React,{useState} from 'react'
 import { Grid,GridItem,Box,useBreakpointValue, Input,Heading, Button,Text} from '@chakra-ui/react'
+import {useNavigate} from 'react-router-dom'
 
-
+import { useSelector,useDispatch} from 'react-redux';
+import { logUser,signUser } from '../reducer/userReducer';
+import store from '../store'
 
 
 const SignUp = (props)=>{
-  const screenWidth = useBreakpointValue({ base: 'sm', md: 'md', lg: 'lg', xl: 'xl' })
+  const navigate = useNavigate()
 
   const inputStyle = {
     variant: 'filled',
@@ -26,8 +29,11 @@ const SignUp = (props)=>{
   const [userName,setUserName] = useState('')
   const [password,setPassword] = useState('')
   const [cPassword,setcPassword] = useState('')
+  const state = useSelector((state) => state);
+  console.log(state)
   function BtnClick(){
-    //what happen if they clicked on sign up button
+    store.dispatch(signUser({username:userName,password:password}))
+    navigate('/chat')
   }
   return(
     <Box p='20px' display='flex' justifyContent='center' h='100%' alignItems='center'  flexDir='column' bgColor='white'>
@@ -50,6 +56,10 @@ const SignUp = (props)=>{
 }
 
 const Login = (props)=>{
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const inputStyle = {
     variant: 'filled',
     autoComplete: 'true',
@@ -71,7 +81,8 @@ const Login = (props)=>{
 
 
   function BtnClick(){
-
+    dispatch(logUser({username:userName,password:password}))
+    navigate('/chat')
   }
   return(
     <Box p='20px' display='flex' justifyContent='center' h='100%' alignItems='center'  flexDir='column' bgColor='white'>

@@ -1,0 +1,22 @@
+[
+    {
+    "username": "user1",
+    "currentMessage": "Hello, world!",
+    "image": "image1.jpg"
+},{
+    "username": "user2",
+    "currentMessage": "Greetings!",
+    "image": "image2.png"
+  },
+  {
+    "username": "user3",
+    "currentMessage": "Good day!",
+    "image": "image3.jpg"
+  },
+  {
+    "username": "user4",
+    "currentMessage": "Hi there!",
+    "image": "image4.png"
+  }
+]      
+  

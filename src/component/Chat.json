@@ -1,0 +1,173 @@
+[{
+    "id": 1,
+    "sender": "User1",
+    "receiver": "User2",
+    "content": "Hey, how are you?",
+    "timestamp": "2023-11-17T12:30:00"
+  },
+  {
+    "id": 2,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "I'm good, thanks! How about you?",
+    "timestamp": "2023-11-17T12:35:00"
+  },
+  {
+    "id": 3,
+    "sender": "User1",
+    "receiver": "User2",
+    "content": "I'm doing well too. Any plans for the weekend?",
+    "timestamp": "2023-11-17T12:40:00"
+  },
+  {
+    "id": 4,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "Not sure yet. Maybe just relaxing at home.",
+    "timestamp": "2023-11-17T12:45:00"
+  },
+  {
+    "id": 5,
+    "sender": "User1",
+    "receiver": "User2",
+    "content": "Sounds nice. I might catch up on some reading.",
+    "timestamp": "2023-11-17T12:50:00"
+  },
+  {
+    "id": 6,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "What book are you currently reading?",
+    "timestamp": "2023-11-17T12:55:00"
+  },
+  {
+    "id": 7,
+    "sender": "User1",
+    "receiver": "User2",
+    "content": "I'm reading 'The Catcher in the Rye'.",
+    "timestamp": "2023-11-17T13:00:00"
+  },
+  {
+    "id": 8,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "Oh, I love that book! It's a classic.",
+    "timestamp": "2023-11-17T13:05:00"
+  },
+  {
+    "id": 9,
+    "sender": "User1",
+    "receiver": "User2",
+    "content": "Yes, it's really engaging. Have you read it?",
+    "timestamp": "2023-11-17T13:10:00"
+  },
+  {
+    "id": 10,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "I read it back in high school. Planning to reread it sometime.",
+    "timestamp": "2023-11-17T13:15:00"
+  },
+  {
+    "id": 8,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "Oh, I love that book! It's a classic.",
+    "timestamp": "2023-11-17T13:05:00"
+  },
+  {
+    "id": 9,
+    "sender": "User1",
+    "receiver": "User2",
+    "content": "Yes, it's really engaging. Have you read it?",
+    "timestamp": "2023-11-17T13:10:00"
+  },
+  {
+    "id": 10,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "I read it back in high school. Planning to reread it sometime.",
+    "timestamp": "2023-11-17T13:15:00"
+  },
+  {
+    "id": 8,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "Oh, I love that book! It's a classic.",
+    "timestamp": "2023-11-17T13:05:00"
+  },
+  {
+    "id": 9,
+    "sender": "User1",
+    "receiver": "User2",
+    "content": "Yes, it's really engaging. Have you read it?",
+    "timestamp": "2023-11-17T13:10:00"
+  },
+  {
+    "id": 10,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "I read it back in high school. Planning to reread it sometime.",
+    "timestamp": "2023-11-17T13:15:00"
+  },  {
+    "id": 8,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "Oh, I love that book! It's a classic.",
+    "timestamp": "2023-11-17T13:05:00"
+  },
+  {
+    "id": 9,
+    "sender": "User1",
+    "receiver": "User2",
+    "content": "Yes, it's really engaging. Have you read it?",
+    "timestamp": "2023-11-17T13:10:00"
+  },
+  {
+    "id": 10,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "I read it back in high school. Planning to reread it sometime.",
+    "timestamp": "2023-11-17T13:15:00"
+  },  {
+    "id": 8,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "Oh, I love that book! It's a classic.",
+    "timestamp": "2023-11-17T13:05:00"
+  },
+  {
+    "id": 9,
+    "sender": "User1",
+    "receiver": "User2",
+    "content": "Yes, it's really engaging. Have you read it?",
+    "timestamp": "2023-11-17T13:10:00"
+  },
+  {
+    "id": 10,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "I read it back in high school. Planning to reread it sometime.",
+    "timestamp": "2023-11-17T13:15:00"
+  },  {
+    "id": 8,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "Oh, I love that book! It's a classic.",
+    "timestamp": "2023-11-17T13:05:00"
+  },
+  {
+    "id": 9,
+    "sender": "User1",
+    "receiver": "User2",
+    "content": "Yes, it's really engaging. Have you read it?",
+    "timestamp": "2023-11-17T13:10:00"
+  },
+  {
+    "id": 10,
+    "sender": "User2",
+    "receiver": "User1",
+    "content": "I read it back in high school. Planning to reread it sometime.",
+    "timestamp": "2023-11-17T13:15:00"
+  }
+]
