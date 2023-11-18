@@ -1,7 +1,7 @@
 import React,{useState,useRef} from 'react'
 import { Box,Input,InputGroup, InputRightElement,Button,Avatar,Text,useBreakpoint,useDisclosure,Drawer} from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
-
+import store from '../store'
 import {PiGooglePlayLogoFill } from "react-icons/pi";
 import axios from 'axios'
 import { useSelector } from 'react-redux';
@@ -86,6 +86,8 @@ const FriendBox = ()=>{
     const navigate = useNavigate()
     const user = useSelector(state=>state.userReducer)
     const allConversation = useSelector(state=>state.userReducer.conversation)
+    const state = useSelector(state=>state)
+    console.log(state)
     const Box_styl1={
         w:'95%',
         display:'flex' ,
@@ -117,7 +119,11 @@ const FriendBox = ()=>{
                 const friend = friendName(ele.users)
                 const currentMessage = getCurrentMessage(ele.message)
                 return(
-                    <Box {...Box_styl2} key={index} onClick={(screenW === 'lg' || screenW === 'md' || screenW==='xl'|| screenW ==='2xl') ? ()=>{console.log(ele);console.log('true')} :  ()=>navigate('/selectedChat')}>
+                    <Box {...Box_styl2} key={index} onClick={(screenW === 'lg' || screenW === 'md' || screenW==='xl'|| screenW ==='2xl') ? ()=>{
+                        store.dispatch({
+                            type:'coversation/SELECTCHAT',
+                            payload:ele
+                          });console.log('true')} :  ()=>navigate('/selectedChat')}>
                         <Avatar size='md'name={friend.username}/>
                         <Box>
                                 <Text fontSize='xl' fontStyle='bold'fontWeight='500' >{friend.username}</Text>

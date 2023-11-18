@@ -1,34 +1,19 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 
-
-export const getConversation = createAsyncThunk('getConversation',async (userInfo)=>{
-    const response = await axios.post('http://localhost:8080/api/user/login',userInfo)
-    return response.data
-})
-
-const userSlice = createSlice({
-    name:'user',
+const ConversationSlice = createSlice({
+    name:'coversation',
     initialState:{
-        username:'',
-        _id:'',
-        token:'',
+      selectedChat:null
     },
     reducers :{
-    },
-    extraReducers: (builder) => {
-        builder
-          .addCase(logUser.fulfilled, (state,action) => {
-            state.username = action.payload.username;
-            state._id = action.payload._id
-            state.token = action.payload.token
-          })
-          .addCase(signUser.fulfilled,(state,action)=>{
-            state.username = action.payload.username;
-            state._id = action.payload._id
-            state.token = action.payload.token
-          })
-        }
+      SELECTCHAT:(state,action)=>{
+        state.selectedChat =action.payload
+      },
+      SETMESSAGE:(state,action)=>{
+        state.selectedChat.message = action.payload
+      }
+    }
 })
 
-export const userReducer = userSlice.reducer
+export const conversationReducer = ConversationSlice.reducer

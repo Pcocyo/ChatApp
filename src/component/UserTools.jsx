@@ -27,7 +27,6 @@ const UserTools = () => {
                   <CiUser size='2em'cursor='pointer'/>
                 </Box>
               </>
-              
             )
           }
           
