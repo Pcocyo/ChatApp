@@ -1,9 +1,9 @@
-import React,{useEffect} from 'react'
-import { Box,Input,InputGroup, InputRightElement,Button,Avatar,Text,useBreakpoint} from '@chakra-ui/react'
+import React,{useState,useRef} from 'react'
+import { Box,Input,InputGroup, InputRightElement,Button,Avatar,Text,useBreakpoint,useDisclosure,Drawer} from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
 
-import message from'./message_user.json'
 import {PiGooglePlayLogoFill } from "react-icons/pi";
+import axios from 'axios'
 import { useSelector } from 'react-redux';
 const ChatNav = () => {
 
@@ -14,7 +14,8 @@ const ChatNav = () => {
         color:'white' ,
         display:'flex',
         flexDirection:'column',
-        alignItems:'center'
+        alignItems:'center',
+        position:'relative'
     }
    //ComponentStylingEnd 
   return ( 
@@ -26,7 +27,15 @@ const ChatNav = () => {
 }
 
 const FindUser = ()=>{
-    
+    const [userToSearch,setUserToSearch] = useState('')
+    const user = useSelector(state=> state.userReducer)
+    const [userFound,setUserFound] = useState([])
+    const [open,setOpen ] = useState(false)
+    async function findBtnClick(){
+        const foundUser = await axios.post('http://localhost:8080/api/user/findUser',{userToFind:userToSearch,userId:user._id})
+        console.log(foundUser.data)
+        setUserFound(foundUser.data)
+    }
     const Input_styl = {
         size:'md',
         bgColor:'white',
@@ -41,12 +50,34 @@ const FindUser = ()=>{
             w='70%'
         >
             <InputGroup>
-                <Input {...Input_styl} name="search_user"/>
-                <InputRightElement color='red' h='100%' onClick={()=>console.log('hello')}>
+                <Input {...Input_styl} name="search_user" onChange={(e)=>setUserToSearch(e.target.value)}/>
+                <InputRightElement color='red' h='100%' cursor='pointer' onClick={()=>{findBtnClick(); setOpen(!open)}}>
                     <PiGooglePlayLogoFill />
                 </InputRightElement>
             </InputGroup>
-            
+            {open && 
+            <Box position='absolute' top='0px'left='0px'bgColor='white' width='100%' overflowY='auto'
+            h='100%' zIndex='1'
+            borderRadius='20px'>
+                <Text color='black' textAlign='center'w='100%' fontSize={'2xl'}>User Found</Text>
+                {userFound && userFound.map((ele,index)=>{
+                    return(   
+                        <Box 
+                        key={index} 
+                        color='black' 
+                        width='100%' 
+                        display='flex' 
+                        alignItems='center'
+                        cursor='pointer'
+                        mt='10px'
+                        onClick={()=>setOpen(!open)}>
+                            <Avatar size='md'name={ele.username}/>
+                            <Text ml='10px' fontSize='lg'>{ele.username}</Text>
+                        </Box>
+                    )
+                })}
+                <Button position='absolute' right='0px' bottom='0'onClick={()=>{setOpen(!open)}}>close</Button>
+            </Box>}
         </Box>
     )
 }
@@ -54,9 +85,7 @@ const FriendBox = ()=>{
     const screenW = useBreakpoint()
     const navigate = useNavigate()
     const user = useSelector(state=>state.userReducer)
-    console.log(user)
     const allConversation = useSelector(state=>state.userReducer.conversation)
-    console.log(allConversation)
     const Box_styl1={
         w:'95%',
         display:'flex' ,
