@@ -1,9 +1,10 @@
 import React,{useEffect} from 'react'
 import { Box,Input,InputGroup, InputRightElement,Button,Avatar,Text,useBreakpoint} from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+
 import message from'./message_user.json'
 import {PiGooglePlayLogoFill } from "react-icons/pi";
+import { useSelector } from 'react-redux';
 const ChatNav = () => {
 
   //ComponentStyling
@@ -52,7 +53,10 @@ const FindUser = ()=>{
 const FriendBox = ()=>{
     const screenW = useBreakpoint()
     const navigate = useNavigate()
-    console.log(message)
+    const user = useSelector(state=>state.userReducer)
+    console.log(user)
+    const allConversation = useSelector(state=>state.userReducer.conversation)
+    console.log(allConversation)
     const Box_styl1={
         w:'95%',
         display:'flex' ,
@@ -69,18 +73,41 @@ const FriendBox = ()=>{
     }
     return(
         <Box {...Box_styl1} className='custom-scrollbar'>
-        <Box w='80%' h='90%'>
-            {message.map((ele,index)=>(
-                    <Box {...Box_styl2} key={index} onClick={(screenW === 'lg' || screenW === 'md' || screenW==='xl'|| screenW ==='2xl') ? ()=>{console.log('true')} :  ()=>navigate('/selectedChat')}>
+        {allConversation.length ? 
+                <Box w='80%' h='90%'>
+                {allConversation.map((ele,index)=>{
+                function friendName(array){
+                    for (let i of array){
+                        if(i._id !== user._id) return i
+                    }
+                }
+                function getCurrentMessage(array){
+                    let len = array.length
+                    return array[len-1]
+                }
+                const friend = friendName(ele.users)
+                const currentMessage = getCurrentMessage(ele.message)
+                return(
+                    <Box {...Box_styl2} key={index} onClick={(screenW === 'lg' || screenW === 'md' || screenW==='xl'|| screenW ==='2xl') ? ()=>{console.log(ele);console.log('true')} :  ()=>navigate('/selectedChat')}>
+                        <Avatar size='md'name={friend.username}/>
+                        <Box>
+                                <Text fontSize='xl' fontStyle='bold'fontWeight='500' >{friend.username}</Text>
+                                {currentMessage && ele.message.len != 0 ? <Text fontSize='sm'>{currentMessage.content}</Text>:<Text fontSize='sm'></Text>}
+                        </Box>
+                    </Box>
+                )})}
+            </Box>
+            : 
+            <Text>no conversation yet search to add</Text>}
+        </Box>
+    )
+}
+
+{/* <Box {...Box_styl2} key={index} onClick={(screenW === 'lg' || screenW === 'md' || screenW==='xl'|| screenW ==='2xl') ? ()=>{console.log('true')} :  ()=>navigate('/selectedChat')}>
                         <Avatar size='md'name={ele.username}/>
                         <Box>
                             <Text fontSize='xl' fontStyle='bold'fontWeight='500' >{ele.username}</Text>
                             <Text fontSize='sm'>{ele.currentMessage}</Text>
                         </Box>
-                    </Box>
-            ))}
-        </Box>
-        </Box>
-    )
-}
+                    </Box> */}
 export default ChatNav

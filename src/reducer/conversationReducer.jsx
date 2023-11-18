@@ -2,13 +2,8 @@ import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 
 
-export const logUser = createAsyncThunk('userLogin',async (userInfo)=>{
+export const getConversation = createAsyncThunk('getConversation',async (userInfo)=>{
     const response = await axios.post('http://localhost:8080/api/user/login',userInfo)
-    return response.data
-})
-
-export const signUser = createAsyncThunk('userSignUP', async(userInfo)=>{
-    const response = await axios.post('http://localhost:8080/api/user/register',userInfo)
     return response.data
 })
 
@@ -18,9 +13,6 @@ const userSlice = createSlice({
         username:'',
         _id:'',
         token:'',
-        biography:'',
-        image:'',
-        conversation:[],
     },
     reducers :{
     },
@@ -30,17 +22,11 @@ const userSlice = createSlice({
             state.username = action.payload.username;
             state._id = action.payload._id
             state.token = action.payload.token
-            state.biography = action.payload.biography
-            state.image= action.payload.image
-            state.conversation= action.payload.conversation
           })
           .addCase(signUser.fulfilled,(state,action)=>{
-            state.username = action.payload.username
+            state.username = action.payload.username;
             state._id = action.payload._id
             state.token = action.payload.token
-            state.biography = action.payload.biography
-            state.image= action.payload.image
-            state.conversation= action.payload.conversation
           })
         }
 })
