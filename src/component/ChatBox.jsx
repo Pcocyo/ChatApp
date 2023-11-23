@@ -5,7 +5,7 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-import React,{useState} from "react";
+import React,{useState,useEffect,useRef} from "react";
 
 import UserTools from "./UserTools";
 import chat from "./Chat.json";
@@ -13,11 +13,28 @@ import { MdOutlineSend } from "react-icons/md";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import store from "../store"
+import {socket,useSocket} from '../socket'
 
 
 const ChatBox = () => {
   const selectedChat = useSelector((state) => state.conversationReducer.selectedChat);
   const user = useSelector((state)=>state.userReducer)
+
+
+
+  /// automatic scroll to bottom
+  const scrollContainerRef = useRef(null);
+  console.log(scrollContainerRef)
+  const scrollToBottom = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+    }
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [selectedChat]);
+
+  
   return (
     <Box h="100vh" minW="450px">
       <Box mb="5px">
@@ -25,7 +42,7 @@ const ChatBox = () => {
       </Box>
       {selectedChat ? (
         <Box bgColor="white" borderRadius="xl" w="90%" margin="auto">
-          <Box overflowY="auto" h="85vh">
+          <Box overflowY="auto" h="85vh" ref={scrollContainerRef}>
             {selectedChat.message.length ? 
             selectedChat.message.map((ele,index)=>{
               return (
@@ -68,22 +85,62 @@ const ChatBox = () => {
 };
 
 const MessageInput = () => {
+  const selectedConversation = useSelector((state)=>state.conversationReducer.selectedChat)
+
+
+  useSocket('message',(data)=>{
+    let newMessage = {
+      content:data.content,
+      conversation_id:data.conversation_id,
+      reciever:data.reciever,
+      sender:data.sender
+    }
+
+    let updatedConversation={
+      ...data.data
+    }
+
+    if(selectedConversation._id == newMessage.conversation_id){
+      store.dispatch({
+        type:'coversation/SETSINGLEMESSAGE',
+        payload:newMessage
+      })
+    }
+    
+    store.dispatch({
+      type:'user/UPDATECONVERSATION',
+      payload:updatedConversation
+    })
+  })
   const [chatInput,setChatInput] = useState('')
   const user = useSelector((state)=>state.userReducer)
-  const conversation = useSelector((state)=>state.conversationReducer.selectedChat)
-  
+  const conversation = useSelector((state)=>state.conversationReducer.selectedChat) 
   async function sendMessage(){
     const conversation_id = conversation._id
     const reciever = conversation.users.filter((ele)=> ele._id != user._id)
+    const sender = conversation.users.filter((ele)=> ele._id == user._id)
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': `${user.token}`, // Replace with your actual access token
   };
     const {data} = await axios.post("http://localhost:8080/api/message/createMessage",{conversation_id, reciever:reciever._id,content:chatInput},{headers})
+
     store.dispatch({
       type:'coversation/SETMESSAGE',
       payload:data.message
     })
+    store.dispatch({
+      type:'user/UPDATECONVERSATION',
+      payload:data
+    })
+    const to_emit = {
+      conversation_id, 
+      reciever:reciever,
+      content:chatInput,
+      sender:sender,
+      data:data
+    }
+    socket.emit('message',to_emit)
   }
   return (
     <Box h="15vh">
@@ -126,4 +183,7 @@ const MessageInput = () => {
 //     </Box>
 //   </Box>
 // ))
+
+
+
 export default ChatBox;

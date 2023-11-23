@@ -23,6 +23,14 @@ const userSlice = createSlice({
         conversation:[],
     },
     reducers :{
+      UPDATECONVERSATION:(state,action)=>{
+        const convIndexToUpdate = state.conversation.findIndex(obj => obj._id === action.payload._id)
+        state.conversation[convIndexToUpdate] = action.payload
+      },
+      NEWCONVERSATION:(state,action)=>{
+        state.conversation.push(action.payload)
+      }
+    
     },
     extraReducers: (builder) => {
         builder

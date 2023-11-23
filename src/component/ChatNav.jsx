@@ -5,6 +5,8 @@ import store from '../store'
 import {PiGooglePlayLogoFill } from "react-icons/pi";
 import axios from 'axios'
 import { useSelector } from 'react-redux';
+import {socket,useSocket} from '../socket'
+
 const ChatNav = () => {
 
   //ComponentStyling
@@ -29,6 +31,7 @@ const ChatNav = () => {
 const FindUser = ()=>{
     const [userToSearch,setUserToSearch] = useState('')
     const user = useSelector(state=> state.userReducer)
+    console.log(user)
     const [userFound,setUserFound] = useState([])
     const [open,setOpen ] = useState(false)
     async function findBtnClick(){
@@ -43,6 +46,19 @@ const FindUser = ()=>{
         placeholder:'Search user',
         borderRadius:'40px',
         borderColor:'black'
+    }
+    async function handleClick(userToChatId){
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `${user.token}`, // Replace with your actual access token
+        };
+        const response = await axios.post('http://localhost:8080/api/conversation/createConversation',{user_id:userToChatId},{headers})
+        console.log(response.data)
+        store.dispatch({
+            type:'user/NEWCONVERSATION',
+            payload:response.data.toReturn
+          });
+        setOpen(!open)
     }
     return(
         <Box
@@ -70,7 +86,7 @@ const FindUser = ()=>{
                         alignItems='center'
                         cursor='pointer'
                         mt='10px'
-                        onClick={()=>setOpen(!open)}>
+                        onClick={()=>handleClick(ele._id)}>
                             <Avatar size='md'name={ele.username}/>
                             <Text ml='10px' fontSize='lg'>{ele.username}</Text>
                         </Box>
@@ -81,13 +97,23 @@ const FindUser = ()=>{
         </Box>
     )
 }
+
+
+
+
 const FriendBox = ()=>{
+
     const screenW = useBreakpoint()
     const navigate = useNavigate()
     const user = useSelector(state=>state.userReducer)
     const allConversation = useSelector(state=>state.userReducer.conversation)
-    const state = useSelector(state=>state)
-    console.log(state)
+    // store.dispatch({
+    //     type:'coversation/SELECTCHAT',
+    //     payload:user.conversation
+    // });
+    // const allConversation = useSelector(state=>[state.conversationReducer.selectedChat])
+    // console.log(allConversation1)
+    
     const Box_styl1={
         w:'95%',
         display:'flex' ,
@@ -107,6 +133,7 @@ const FriendBox = ()=>{
         {allConversation.length ? 
                 <Box w='80%' h='90%'>
                 {allConversation.map((ele,index)=>{
+                    
                 function friendName(array){
                     for (let i of array){
                         if(i._id !== user._id) return i
@@ -117,13 +144,16 @@ const FriendBox = ()=>{
                     return array[len-1]
                 }
                 const friend = friendName(ele.users)
-                const currentMessage = getCurrentMessage(ele.message)
+                let currentMessage = getCurrentMessage(ele.message)
+
                 return(
                     <Box {...Box_styl2} key={index} onClick={(screenW === 'lg' || screenW === 'md' || screenW==='xl'|| screenW ==='2xl') ? ()=>{
-                        store.dispatch({
+                            store.dispatch({
                             type:'coversation/SELECTCHAT',
                             payload:ele
-                          });console.log('true')} :  ()=>navigate('/selectedChat')}>
+                          });
+                          socket.emit('join',ele._id)
+                          console.log('true')} :  ()=>navigate('/selectedChat')}>
                         <Avatar size='md'name={friend.username}/>
                         <Box>
                                 <Text fontSize='xl' fontStyle='bold'fontWeight='500' >{friend.username}</Text>

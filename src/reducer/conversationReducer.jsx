@@ -12,6 +12,9 @@ const ConversationSlice = createSlice({
       },
       SETMESSAGE:(state,action)=>{
         state.selectedChat.message = action.payload
+      },
+      SETSINGLEMESSAGE:(state,action)=>{
+        state.selectedChat.message.push(action.payload)
       }
     }
 })
