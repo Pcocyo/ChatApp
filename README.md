@@ -17,4 +17,4 @@ Opening the app, it would look like this
 Im using this diagram to build the mongoose data scheme
 ![SharedScreenshot4](https://github.com/Pcocyo/ChatApp/assets/97817589/d7035746-6449-4e57-a33f-36c1f457127a)
 
-
+you can find the backen code for this chat app at my repository chatAppBackend
