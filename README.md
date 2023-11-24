@@ -1,6 +1,6 @@
 # ChatApp
 
-This is a chat application build with mainly using react js, redux state management, socket io and chakra ui for front end functionality, for the backend
+This is a chat application build with mainly using react js, redux state management,vite, socket io and chakra ui for front end functionality, for the backend
 I am using mongodB(mongoose),express,node js.
 
 the design I create for this project is like the provided pitcure below. This design is created wth figma 
