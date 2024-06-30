@@ -98,11 +98,7 @@ const FindUser = ()=>{
     )
 }
 
-
-
-
 const FriendBox = ()=>{
-
     const screenW = useBreakpoint()
     const navigate = useNavigate()
     const user = useSelector(state=>state.userReducer)
@@ -167,12 +163,4 @@ const FriendBox = ()=>{
         </Box>
     )
 }
-
-{/* <Box {...Box_styl2} key={index} onClick={(screenW === 'lg' || screenW === 'md' || screenW==='xl'|| screenW ==='2xl') ? ()=>{console.log('true')} :  ()=>navigate('/selectedChat')}>
-                        <Avatar size='md'name={ele.username}/>
-                        <Box>
-                            <Text fontSize='xl' fontStyle='bold'fontWeight='500' >{ele.username}</Text>
-                            <Text fontSize='sm'>{ele.currentMessage}</Text>
-                        </Box>
-                    </Box> */}
 export default ChatNav
