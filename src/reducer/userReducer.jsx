@@ -8,7 +8,7 @@ export const logUser = createAsyncThunk('userLogin',async (userInfo)=>{
 })
 
 export const signUser = createAsyncThunk('userSignUP', async(userInfo)=>{
-    const response = await axios.post('http://localhost:8080/api/user/register',userInfo)
+    const response = await axios.post('https://chatapp-backend-gsoh.onrender.com/api/user/register',userInfo)
     return response.data
 })
 
