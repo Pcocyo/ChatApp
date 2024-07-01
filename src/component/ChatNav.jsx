@@ -52,7 +52,7 @@ const FindUser = ()=>{
             'Content-Type': 'application/json',
             'Authorization': `${user.token}`, // Replace with your actual access token
         };
-        const response = await axios.post('http://localhost:8080/api/conversation/createConversation',{user_id:userToChatId},{headers})
+        const response = await axios.post('https://chatapp-backend-gsoh.onrender.com/api/conversation/createConversation',{user_id:userToChatId},{headers})
         console.log(response.data)
         store.dispatch({
             type:'user/NEWCONVERSATION',

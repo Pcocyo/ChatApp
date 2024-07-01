@@ -123,7 +123,7 @@ const MessageInput = () => {
       'Content-Type': 'application/json',
       'Authorization': `${user.token}`, // Replace with your actual access token
   };
-    const {data} = await axios.post("http://localhost:8080/api/message/createMessage",{conversation_id, reciever:reciever._id,content:chatInput},{headers})
+    const {data} = await axios.post("https://chatapp-backend-gsoh.onrender.com/api/message/createMessage",{conversation_id, reciever:reciever._id,content:chatInput},{headers})
 
     store.dispatch({
       type:'coversation/SETMESSAGE',
