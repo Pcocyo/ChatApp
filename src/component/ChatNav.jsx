@@ -35,7 +35,7 @@ const FindUser = ()=>{
     const [userFound,setUserFound] = useState([])
     const [open,setOpen ] = useState(false)
     async function findBtnClick(){
-        const foundUser = await axios.post('http://localhost:8080/api/user/findUser',{userToFind:userToSearch,userId:user._id})
+        const foundUser = await axios.post('https://chatapp-backend-gsoh.onrender.com/api/user/findUser',{userToFind:userToSearch,userId:user._id})
         console.log(foundUser.data)
         setUserFound(foundUser.data)
     }
