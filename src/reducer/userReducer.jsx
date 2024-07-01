@@ -3,12 +3,12 @@ import axios from 'axios'
 
 
 export const logUser = createAsyncThunk('userLogin',async (userInfo)=>{
-    const response = await axios.post('http://localhost:8080/api/user/login',userInfo)
+    const response = await axios.post('https://chatapp-backend-5vqw.onrender.com/api/user/login',userInfo)
     return response.data
 })
 
 export const signUser = createAsyncThunk('userSignUP', async(userInfo)=>{
-    const response = await axios.post('http://localhost:8080/api/user/register',userInfo)
+    const response = await axios.post('https://chatapp-backend-5vqw.onrender.com/api/user/register',userInfo)
     return response.data
 })
 
